@@ -127,6 +127,7 @@ app.post("/newproject",async(req,res)=>{
 app.post("/sentReq",async(req,res)=>{
   const userid=req.user.id;
   const friendid=req.body.friendid;
+  const projectid=req.body.projectid;
  console.log(userid+" "+friendid)
 
  user.findOneAndUpdate(
@@ -137,26 +138,38 @@ app.post("/sentReq",async(req,res)=>{
       } 
 
   },
-  {arrayFilters:[{'project._id':'workzone2'}]}).exec()
-
-  user.findOneAndUpdate(
-    { _id:friendid }, 
-    { $push: { 
-              project: {
-                _id :"workzone2"
+  {arrayFilters:[{'project._id':projectid}]}).exec()
+ 
+ user.findOneAndUpdate(
+  { _id:friendid }, 
+  {
+    $push:{requests:{
+      _id:userid,
+      projectid:projectid,
+      username:"newman@gmail.com"
+    }
+  }
+},
+ ).exec()
+  // user.findOneAndUpdate(
+  //   { _id:friendid }, 
+  //   { $addToSet: { 
+  //             project: {
+  //               _id :projectid,
+  //               requestid:userid
                 
-                }  
-            } 
-    }).exec()
-    user.findOneAndUpdate(
-      {_id:friendid},
-      { $push: { 
+  //               }  
+  //           } 
+  //   },).exec()
+  //   user.findOneAndUpdate(
+  //     {_id:friendid},
+  //     { $push: { 
         
-            'project.$[project].request':{_id:userid,username:"adarsh2dubey@gmail.com"}
-          } 
+  //           'project.$[project].request':{_id:userid,username:"reedred@gmail.com"}
+  //         } 
     
-      },
-      {arrayFilters:[{'project._id':'workzone2'}]}).exec()
+  //     },
+  //     {arrayFilters:[{'project._id':projectid}]}).exec()
 });
 app.get("/fetchAll",(req,res)=>{
   user.find({}, function(err, users) {

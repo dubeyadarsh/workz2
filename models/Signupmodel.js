@@ -16,22 +16,34 @@ const SignupSchema=new mongoose.Schema({
     type:String,
     required:true
  },
+ requests:[
+{
+   _id:{
+      type:String,
+      unique:true
+   },
+   _username:{
+      type:String
+   },
+   projectid:{
+      type:String
+   }
+}
+ ],
 project:[{
    _id:{
       type:String,
+      unique:true
    },
    sentRequest:[{
       _id:{type: String},
       username: {type: String}
       }],
-   request: [{
-      _id: {type:String},
-      username: {type: String}
-      }],
-   friendsList: [{
-      _id: {type:String},
-      friendName: {type: String}
-      }],
+   requestid: {
+      type:String
+      
+      }
+   
    }
 ]
 

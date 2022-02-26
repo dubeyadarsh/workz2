@@ -10,13 +10,14 @@ const Details = () => {
     e.preventDefault();
   Axios.get("/fetchAll").then((res)=>{
    console.log(res.data);
+   console.log(props.projects)
    setAllUser(res.data);
   })
    }
    function sentRequest(friendid){
     console.log(friendid);
 
-    Axios.post("/sentReq",{friendid:friendid}).then((response)=>{
+    Axios.post("/sentReq",{friendid:friendid, projectid:props.projectid}).then((response)=>{
         alert("sent");
     })
  }
@@ -38,12 +39,15 @@ const Details = () => {
          </div>
          <div className="col-1 mt-1 ml-5">
            <button key={key} className='btn btn-primary' onClick={()=>{sentRequest(val._id)}}>Send</button>
+
          </div>
+         
          </div>
         </>
       })
     }
     </div>
+    
     </>
   )
 }
