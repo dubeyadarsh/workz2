@@ -22,7 +22,7 @@ const SignupSchema=new mongoose.Schema({
       type:String,
       unique:true
    },
-   _username:{
+   username:{
       type:String
    },
    projectid:{
@@ -34,6 +34,18 @@ project:[{
    _id:{
       type:String,
       unique:true
+   },
+   status:{
+      type:String
+   },
+   sdate:{
+      type:Date
+   },
+   edate:{
+      type:Date
+   },
+   description:{
+      type:String
    },
    sentRequest:[{
       _id:{type: String},
